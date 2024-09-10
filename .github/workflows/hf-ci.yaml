@@ -28,8 +28,8 @@ jobs:
     - name: Push the Docker Image to ECR
       run: |
         aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/v0m7a4i7
-        docker tag my-flask-app:latest public.ecr.aws/v0m7a4i7/my-flask-app:latest
-        docker push public.ecr.aws/v0m7a4i7/my-flask-app:latest
+        docker tag my-fast-api:latest public.ecr.aws/v0m7a4i7/my-fast-api:latest
+        docker push public.ecr.aws/v0m7a4i7/my-fast-api:latest
 
     - name: Action-SSH
       uses: tiyee/action-ssh@v1.0.1
@@ -37,4 +37,4 @@ jobs:
         host: ${{ secrets.EC2_HOST }}
         username: ec2-user
         privateKey: ${{ secrets.EC2_SSH_KEY }}
-        command: docker pull public.ecr.aws/v0m7a4i7/my-flask-app:latest && docker run -d -p 80:8080 --name my-flask-app public.ecr.aws/v0m7a4i7/my-flask-app:latest
+        command: docker pull public.ecr.aws/v0m7a4i7/my-fast-api:latest && docker run -d -p 80:80 --name my-fast-api public.ecr.aws/v0m7a4i7/my-fast-api:latest
